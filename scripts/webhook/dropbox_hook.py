@@ -36,11 +36,10 @@ def verify(url, challenge):
             print('Verification passed!')
         else:
             text = response.text
-            if len(text) > 30:
-                text = '(truncated) "%s..."' % text[:30]
-            else:
-                text = '"%s"' % text
-            print('Invalid verification response. Expected "%s", but server responded with %s' % (challenge, text))
+            text = f'(truncated) "{text[:30]}..."' if len(text) > 30 else f'"{text}"'
+            print(
+                f'Invalid verification response. Expected "{challenge}", but server responded with {text}'
+            )
     else:
         print('Invalid verification response. Server responded with status code %d.' % response.status_code)
 
